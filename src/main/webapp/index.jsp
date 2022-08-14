@@ -33,9 +33,9 @@
 					<div style="flex: 4; padding: 5px 20px 5px 5px;">
 						<select name="type" class="form-control">
 							<option value="" style="display: none">--- 請選擇商品類別 ---</option>
-							<option value="novel">小說</option>
-							<option value="comic">漫畫</option>
-							<option value="ebook">電子書</option>
+							<option value="1">小說</option>
+							<option value="2">漫畫</option>
+							<option value="3">電子書</option>
 						</select>
 					</div>
 					<div style="flex: 4; padding: 5px 20px 5px 5px;">
