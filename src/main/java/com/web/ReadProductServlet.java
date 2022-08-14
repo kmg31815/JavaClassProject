@@ -13,11 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.dao.ProductDao;
+import com.web.dao.daoImpl.ProductDaoImpl;
 import com.web.model.Product;
 import com.web.utils.DBConnection;
 
 @WebServlet("/readProduct")
 public class ReadProductServlet extends HttpServlet {
+
+	private ProductDao productDao;
+
+	public ReadProductServlet() {
+		productDao = new ProductDaoImpl();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,42 +34,21 @@ public class ReadProductServlet extends HttpServlet {
 		 */
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
-		System.out.println(type + "\t" + keyword);
+		System.out.println("type: " + type + "\tkeyword: " + keyword);
 
-		DBConnection db = DBConnection.getDBConnection();
-		Connection conn = null;
-		Statement st = null;
-		ResultSet rs = null;
-		try {
-			conn = db.getConnection();
-			st = conn.createStatement();
-			String sql = "";
-			if (type.equals("") && keyword.equals("")) {
-				sql = "select * from product";
-			}
-			rs = st.executeQuery(sql);
-
-			ArrayList<Product> products = new ArrayList();
-			while (rs.next()) {
-				Product product = new Product();
-				product.setProductId(rs.getInt("id"));
-				product.setProductName(rs.getString("name"));
-				product.setProductImage(rs.getString("image"));
-				product.setProductDesc(rs.getString("description"));
-				product.setProductPrice(rs.getInt("price"));
-				product.setTypeId(rs.getInt("type_id"));
-				products.add(product);
-				System.out.println(product);
-			}
-			request.setAttribute("products", products);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			db.close(rs);
-			db.close(st);
-			db.close(conn);
+		ArrayList<Product> products = new ArrayList();
+		if (type.equals("") && keyword.equals("")) {
+			products = productDao.readAll();
+		} else if (!type.equals("") && keyword.equals("")) {
+			products = productDao.readByType(Integer.parseInt(type));
+		} else if (type.equals("") && !keyword.equals("")) {
+			products = productDao.readByKeyword(keyword);
+		} else {
+			products = productDao.readByTypeAndKeyword(Integer.parseInt(type), keyword);
 		}
+
+		request.setAttribute("products", products);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}
 
