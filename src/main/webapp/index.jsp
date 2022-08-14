@@ -28,7 +28,7 @@
 						<div>登入</div>
 					</a>
 				</div>
-				<form action="homeServlet" method="GET"
+				<form action="readProduct" method="GET"
 					style="flex: 1; display: flex; flex-direction: row;">
 					<div style="flex: 4; padding: 5px 20px 5px 5px;">
 						<select name="type" class="form-control">

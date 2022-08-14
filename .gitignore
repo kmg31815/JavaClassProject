@@ -1,1 +1,6 @@
 build/classes/com/web/HomeServlet.class
+build/classes/com/web/ReadProductServlet.class
+build/classes/com/web/model/Product.class
+build/classes/com/web/model/ProductType.class
+build/classes/com/web/model/User.class
+build/classes/com/web/utils/DBConnection.class
