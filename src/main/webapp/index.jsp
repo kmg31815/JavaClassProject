@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/header.jsp"></jsp:include>
 <title>Home</title>
 </head>
@@ -51,61 +52,29 @@
 	</header>
 
 	<div style="margin-top: 150px;">
-		<ul>
-			<li>
-				<div class="item-name-block">
-					<span>Sword Art Online刀劍神域 1 艾恩葛朗特</span>
-				</div>
+		<c:if test="${products.size() > 0}">
+			<ul>
+				<c:forEach var="i" begin="0" end="${products.size() - 1}" step="1">
+					<li>
+						<div class="item-name-block">
+							<span>${products.get(i).productName}</span>
+						</div>
 
-				<div class="item-img-block">
-					<img
-						src="https://upload.wikimedia.org/wikipedia/zh/4/41/Sword_Art_Online_%28TW01%29.jpg"
-						alt="刀劍神域 1">
-				</div>
+						<div class="item-img-block">
+							<img src="${products.get(i).productImage}" alt="刀劍神域 1">
+						</div>
 
-				<div class="item-desc-block">
-					<span> 無法完全攻略就無法離開遊戲，GAME OVER也等於宣告玩家的「死亡」──<br>
-						大約一萬名不知謎樣次世代線上遊戲「Sword Art Online
-						刀劍神域〈SAO〉」「真相」為何的玩家登入後，這場死亡戰鬥也隨之揭開了序幕。<br>
-						身為其中一名SAO的遊戲玩家──主角．桐人，比任何人都還早接受這款線上遊戲的「真相」。他在遊戲的舞台──巨大浮遊城堡「艾恩葛朗特」裡，以不與人組隊的獨行劍士身分，逐漸展露頭角。<br>
-						桐人原本以完全攻略的條件──以到達城堡最上層為目標，持續單獨地進行嚴酷且漫長的冒險。但在刺擊劍高手．女性劍士亞絲娜的強迫邀約之下，最後決定與她一起組隊。兩人的相遇也為桐人帶來了命中注定的契機──<br>
-						在個人網站上連載時，創下超過650萬閱覽人數的紀錄！傳說中的小說即將登場！
-					</span>
-				</div>
+						<div class="item-desc-block">
+							<span>${products.get(i).productDesc}</span>
+						</div>
 
-				<div class="item-price-block">
-					<span>161 元</span>
-				</div>
-			</li>
-			<li>
-				<div class="item-name-block">
-					<span>商品名稱</span>
-				</div>
-				<div class="item-img-block">
-					<img src="" alt="刀劍神域 2">
-				</div>
-				<div class="item-desc-block">
-					<span>商品介紹</span>
-				</div>
-				<div class="item-price-block">
-					<span>商品價錢</span>
-				</div>
-			</li>
-			<li>
-				<div class="item-name-block">
-					<span>商品名稱</span>
-				</div>
-				<div class="item-img-block">
-					<img src="" alt="刀劍神域 3">
-				</div>
-				<div class="item-desc-block">
-					<span>商品介紹</span>
-				</div>
-				<div class="item-price-block">
-					<span>商品價錢</span>
-				</div>
-			</li>
-		</ul>
+						<div class="item-price-block">
+							<span>${products.get(i).productPrice} 元</span>
+						</div>
+					</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 	</div>
 
 	<footer> footer </footer>
