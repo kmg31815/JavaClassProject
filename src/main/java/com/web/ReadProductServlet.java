@@ -40,11 +40,11 @@ public class ReadProductServlet extends HttpServlet {
 		if (type.equals("") && keyword.equals("")) {
 			products = productDao.readAll();
 		} else if (!type.equals("") && keyword.equals("")) {
-			products = productDao.readByType(Integer.parseInt(type));
+			products = productDao.readByType(type);
 		} else if (type.equals("") && !keyword.equals("")) {
 			products = productDao.readByKeyword(keyword);
 		} else {
-			products = productDao.readByTypeAndKeyword(Integer.parseInt(type), keyword);
+			products = productDao.readByTypeAndKeyword(type, keyword);
 		}
 
 		request.setAttribute("products", products);

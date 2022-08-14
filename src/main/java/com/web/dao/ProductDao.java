@@ -10,11 +10,11 @@ public interface ProductDao {
 
 	public ArrayList<Product> readAll();
 
-	public ArrayList<Product> readByType(int typeId);
+	public ArrayList<Product> readByType(String typeId);
 
 	public ArrayList<Product> readByKeyword(String keyword);
 
-	public ArrayList<Product> readByTypeAndKeyword(int typeId, String keyword);
+	public ArrayList<Product> readByTypeAndKeyword(String typeId, String keyword);
 
 	public void update(Product product);
 
