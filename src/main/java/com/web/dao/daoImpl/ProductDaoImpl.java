@@ -23,7 +23,23 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public void create(Product product) {
+		String sql = "insert into product(name, image, description, price, type_id) value(?, ?, ?, ?, ?)";
+		conn = db.getConnection();
 
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, product.getProductName());
+			ps.setString(2, product.getProductImage());
+			ps.setString(3, product.getProductDesc());
+			ps.setInt(4, product.getProductPrice());
+			ps.setInt(5, product.getTypeId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.close(ps);
+			db.close(conn);
+		}
 	}
 
 	@Override
@@ -52,22 +68,51 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public void update(Product product) {
+		String sql = "update product set name = ?, image = ?, description = ?, price = ?, type_id = ? where id = ?";
+		conn = db.getConnection();
 
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, product.getProductName());
+			ps.setString(2, product.getProductImage());
+			ps.setString(3, product.getProductDesc());
+			ps.setInt(4, product.getProductPrice());
+			ps.setInt(5, product.getTypeId());
+			ps.setInt(6, product.getProductId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.close(ps);
+			db.close(conn);
+		}
 	}
 
 	@Override
 	public void delete(int id) {
+		String sql = "delete from product where id = ?";
+		conn = db.getConnection();
 
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.close(ps);
+			db.close(conn);
+		}
 	}
 
 	private ArrayList<Product> readFunction(String sql, String... parameter) {
 		ArrayList<Product> products = new ArrayList();
+		conn = db.getConnection();
 
 		try {
-			conn = db.getConnection();
 			ps = conn.prepareStatement(sql);
 			for (int i = 0; i < parameter.length; i++) {
-				ps.setObject(i + 1, parameter[i]);
+				ps.setString(i + 1, parameter[i]);
 			}
 			rs = ps.executeQuery();
 
