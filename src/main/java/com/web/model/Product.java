@@ -39,6 +39,25 @@ public class Product {
 
 	}
 
+	public Product(String productName, String productImage, String productDesc, int productPrice, int typeId) {
+		this.productName = productName;
+		this.productImage = productImage;
+		this.productDesc = productDesc;
+		this.productPrice = productPrice;
+		this.typeId = typeId;
+	}
+
+	public Product(int productId, String productName, String productImage, String productDesc, int productPrice,
+			int typeId) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.productImage = productImage;
+		this.productDesc = productDesc;
+		this.productPrice = productPrice;
+		this.typeId = typeId;
+	}
+
 	public int getProductId() {
 		return productId;
 	}
