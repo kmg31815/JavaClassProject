@@ -12,3 +12,11 @@ build/classes/com/web/test/ProductDaoImplTest.class
 build/classes/com/web/SignUpServlet.class
 build/classes/com/web/dao/UserDao.class
 build/classes/com/web/dao/daoImpl/UserDaoImpl.class
+build/classes/com/web/controller/HomeServlet.class
+build/classes/com/web/controller/LoginServlet.class
+build/classes/com/web/controller/ReadProductServlet.class
+build/classes/com/web/controller/SignUpServlet.class
+build/classes/com/web/filter/LoginFilter.class
+build/classes/com/web/test/TypeDaoImplTest.class
+build/classes/com/web/utils/LoginUtil.class
+build/classes/com/web/test/UserDaoImplTest.class

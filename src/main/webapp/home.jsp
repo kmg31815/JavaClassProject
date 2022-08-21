@@ -9,8 +9,8 @@
 	<header>
 		<div style="height: 100%; display: flex; flex-direction: row;">
 			<div style="flex: 1;">
-				<a href="index.jsp"> <img style="height: 100px;"
-					src="images/logo.jpg" alt="LOGO">
+				<a href="<%=request.getContextPath()%>/"> <img
+					style="height: 100px;" src="images/logo.jpg" alt="LOGO">
 				</a>
 			</div>
 			<div style="flex: 4; display: flex; flex-direction: column;">
@@ -23,24 +23,28 @@
 						<div>會員中心</div>
 					</a>
 					<!-- Button trigger modal -->
-					<a style="flex: 1; border-style: double; border-color: black; cursor: pointer;"
+					<a
+						style="flex: 1; border-style: double; border-color: black; cursor: pointer;"
 						data-toggle="modal" data-target="#signupModal">
 						<div>註冊</div>
 					</a>
 					<!-- Button trigger modal -->
-					<a style="flex: 1; border-style: double; border-color: black; cursor: pointer;"
+					<a
+						style="flex: 1; border-style: double; border-color: black; cursor: pointer;"
 						data-toggle="modal" data-target="#loginModal">
 						<div>登入</div>
 					</a>
 				</div>
+
 				<form action="readProduct" method="GET"
 					style="flex: 1; display: flex; flex-direction: row;">
 					<div style="flex: 4; padding: 5px 20px 5px 5px;">
 						<select name="type" class="form-control">
 							<option value="" style="display: none">--- 請選擇商品類別 ---</option>
-							<option value="1">小說</option>
-							<option value="2">漫畫</option>
-							<option value="3">電子書</option>
+							<c:forEach var="i" begin="0" end="${typeList.size() - 1}"
+								step="1">
+								<option value="${typeList.get(i).typeId}">${typeList.get(i).typeName}</option>
+							</c:forEach>
 						</select>
 					</div>
 					<div style="flex: 4; padding: 5px 20px 5px 5px;">
@@ -97,11 +101,13 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="name">帳號：</label> <input id="name" type="text"
-								placeholder="請輸入帳號" name="username" class="form-control">
+								placeholder="請輸入帳號" name="username" class="form-control"
+								required>
 						</div>
 						<div class="form-group">
 							<label for="pass">密碼：</label> <input id="pass" type="password"
-								placeholder="請輸入密碼" name="userpass" class="form-control">
+								placeholder="請輸入密碼" name="userpass" class="form-control"
+								required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -124,15 +130,17 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="signUpServlet" method="post">
+				<form action="loginServlet" method="post">
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="name">帳號：</label> <input id="name" type="text"
-								placeholder="請輸入帳號" name="username" class="form-control">
+								placeholder="請輸入帳號" name="username" class="form-control"
+								required>
 						</div>
 						<div class="form-group">
 							<label for="pass">密碼：</label> <input id="pass" type="password"
-								placeholder="請輸入密碼" name="userpass" class="form-control">
+								placeholder="請輸入密碼" name="userpass" class="form-control"
+								required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -142,6 +150,16 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- sign up fail -->
+	<c:if test="${fail}">
+		<script>
+			alert('使用者名稱已註冊');
+		</script>
+		<%
+		session.setAttribute("fail", false);
+		%>
+	</c:if>
 
 	<footer> footer </footer>
 </body>

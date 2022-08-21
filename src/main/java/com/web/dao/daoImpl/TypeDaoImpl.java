@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.web.dao.TypeDao;
-import com.web.model.Product;
 import com.web.model.ProductType;
 import com.web.utils.DBConnection;
 

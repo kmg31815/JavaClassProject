@@ -1,4 +1,4 @@
-package com.web;
+package com.web.controller;
 
 import java.io.IOException;
 
@@ -26,11 +26,15 @@ public class SignUpServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String userpass = request.getParameter("userpass");
-		System.out.println("username: " + username + "\tuserpass: " + userpass);
 
-		User user = new User(username, userpass);
-		userDao.create(user);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		if (userDao.readByName(username) != null) {
+			request.getSession().setAttribute("fail", true);
+		} else {
+			userDao.create(new User(username, userpass));
+		}
+
+		// 導回專案根目錄
+		response.sendRedirect(request.getContextPath());
 	}
 
 }
