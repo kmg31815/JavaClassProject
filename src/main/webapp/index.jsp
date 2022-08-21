@@ -21,11 +21,15 @@
 					</a> <a style="flex: 1; border-style: double; border-color: black;"
 						href="member_center.jsp">
 						<div>會員中心</div>
-					</a> <a style="flex: 1; border-style: double; border-color: black;"
-						href="sign_up.jsp">
+					</a>
+					<!-- Button trigger modal -->
+					<a style="flex: 1; border-style: double; border-color: black; cursor: pointer;"
+						data-toggle="modal" data-target="#signupModal">
 						<div>註冊</div>
-					</a> <a style="flex: 1; border-style: double; border-color: black;"
-						href="login.jsp">
+					</a>
+					<!-- Button trigger modal -->
+					<a style="flex: 1; border-style: double; border-color: black; cursor: pointer;"
+						data-toggle="modal" data-target="#loginModal">
 						<div>登入</div>
 					</a>
 				</div>
@@ -75,6 +79,68 @@
 				</c:forEach>
 			</ul>
 		</c:if>
+	</div>
+
+	<!-- signup Modal -->
+	<div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="signUpServlet" method="post">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="name">帳號：</label> <input id="name" type="text"
+								placeholder="請輸入帳號" name="username" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="pass">密碼：</label> <input id="pass" type="password"
+								placeholder="請輸入密碼" name="userpass" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">註冊</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- login Modal -->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="signUpServlet" method="post">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="name">帳號：</label> <input id="name" type="text"
+								placeholder="請輸入帳號" name="username" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="pass">密碼：</label> <input id="pass" type="password"
+								placeholder="請輸入密碼" name="userpass" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">登入</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 
 	<footer> footer </footer>
