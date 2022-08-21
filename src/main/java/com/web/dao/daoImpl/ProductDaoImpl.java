@@ -114,18 +114,21 @@ public class ProductDaoImpl implements ProductDao {
 			for (int i = 0; i < parameter.length; i++) {
 				ps.setString(i + 1, parameter[i]);
 			}
-			rs = ps.executeQuery();
+			boolean isFirstResultSet = ps.execute();
 
-			while (rs.next()) {
-				Product product = new Product();
-				product.setProductId(rs.getInt("id"));
-				product.setProductName(rs.getString("name"));
-				product.setProductImage(rs.getString("image"));
-				product.setProductDesc(rs.getString("description"));
-				product.setProductPrice(rs.getInt("price"));
-				product.setTypeId(rs.getInt("type_id"));
-				System.out.println(product);
-				products.add(product);
+			if (isFirstResultSet) {
+				rs = ps.getResultSet();
+				while (rs.next()) {
+					Product product = new Product();
+					product.setProductId(rs.getInt("id"));
+					product.setProductName(rs.getString("name"));
+					product.setProductImage(rs.getString("image"));
+					product.setProductDesc(rs.getString("description"));
+					product.setProductPrice(rs.getInt("price"));
+					product.setTypeId(rs.getInt("type_id"));
+					System.out.println(product);
+					products.add(product);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

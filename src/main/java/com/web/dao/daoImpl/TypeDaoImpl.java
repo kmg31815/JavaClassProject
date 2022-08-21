@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.web.dao.TypeDao;
@@ -15,8 +14,7 @@ public class TypeDaoImpl implements TypeDao {
 
 	private DBConnection db;
 	private Connection conn;
-	private PreparedStatement ps;
-	private Statement st;
+	private PreparedStatement ps; // 預防注入攻擊
 	private ResultSet rs;
 
 	public TypeDaoImpl() {
@@ -31,26 +29,31 @@ public class TypeDaoImpl implements TypeDao {
 	@Override
 	public ArrayList<ProductType> readAll() {
 		ArrayList<ProductType> productTypes = new ArrayList();
-		try {
-			conn = db.getConnection();
-			st = conn.createStatement();
-			String sql = "select * from type";
-			rs = st.executeQuery(sql);
+		String sql = "select * from type";
+		conn = db.getConnection();
 
-			while (rs.next()) {
-				ProductType productType = new ProductType();
-				productType.setTypeId(rs.getInt("id"));
-				productType.setTypeName(rs.getString("name"));
-				productTypes.add(productType);
-				System.out.println(productType);
+		try {
+			ps = conn.prepareStatement(sql);
+			boolean isFirstResultSet = ps.execute();
+
+			if (isFirstResultSet) {
+				rs = ps.getResultSet();
+				while (rs.next()) {
+					ProductType productType = new ProductType();
+					productType.setTypeId(rs.getInt("id"));
+					productType.setTypeName(rs.getString("name"));
+					System.out.println(productType);
+					productTypes.add(productType);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			db.close(rs);
-			db.close(st);
+			db.close(ps);
 			db.close(conn);
 		}
+
 		return productTypes;
 	}
 

@@ -48,12 +48,15 @@ public class UserDaoImpl implements UserDao {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getUserName());
 			ps.setString(2, user.getPassword());
-			rs = ps.executeQuery();
+			boolean isFirstResultSet = ps.execute();
 
-			while (rs.next()) {
-				user2 = new User();
-				user2.setUserName(rs.getString("name"));
-				user2.setPassword(rs.getString("password"));
+			if (isFirstResultSet) {
+				rs = ps.getResultSet();
+				while (rs.next()) {
+					user2 = new User();
+					user2.setUserName(rs.getString("name"));
+					user2.setPassword(rs.getString("password"));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -75,9 +78,13 @@ public class UserDaoImpl implements UserDao {
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				user = new User(rs.getString("name"), rs.getString("password"));
+			boolean isFirstResultSet = ps.execute();
+
+			if (isFirstResultSet) {
+				rs = ps.getResultSet();
+				while (rs.next()) {
+					user = new User(rs.getString("name"), rs.getString("password"));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

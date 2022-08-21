@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DBConnection {
 
@@ -47,16 +46,6 @@ public class DBConnection {
 		if (ps != null) {
 			try {
 				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void close(Statement st) {
-		if (st != null) {
-			try {
-				st.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
