@@ -33,7 +33,7 @@ public class LoginFilter extends HttpFilter implements Filter {
 		if (token != null) {
 			try {
 				User user = loginUtil.validateJsonWebToken(token);
-				System.out.println(user);
+				System.out.println("LoginFilter\t" + user);
 				((HttpServletRequest) request).getSession().setAttribute("user", user);
 			} catch (Throwable e) {
 				e.printStackTrace();

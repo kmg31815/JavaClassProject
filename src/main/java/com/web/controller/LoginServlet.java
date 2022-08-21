@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 		if (userDao.readByUser(user) != null) {
 			// 產token
 			String token = loginUtil.generateJsonWebToken(user);
-			System.out.println(token);
+			System.out.println("LoginServlet\t" + token);
 			// 存token
 			request.getSession().setAttribute("token", token);
 		} else {
