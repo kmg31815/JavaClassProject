@@ -6,11 +6,11 @@ import com.web.dao.UserDao;
 import com.web.dao.daoImpl.UserDaoImpl;
 import com.web.model.User;
 
-public class UserDaoImplTest {
+public class UserTest {
 
 	private UserDao userDao;
 
-	public UserDaoImplTest() {
+	public UserTest() {
 		userDao = new UserDaoImpl();
 	}
 

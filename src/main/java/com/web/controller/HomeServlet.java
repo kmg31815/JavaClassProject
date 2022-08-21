@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,6 @@ import com.web.dao.daoImpl.TypeDaoImpl;
 import com.web.model.Product;
 import com.web.model.ProductType;
 
-@WebServlet("/")
 public class HomeServlet extends HttpServlet {
 
 	private TypeDao typeDao;
@@ -31,13 +29,12 @@ public class HomeServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("@@@@@@@@@@@"); // 不知為啥啟動專案會跑兩次 (目前不影響，之後再問老師)
-		// 一進首頁要拿下拉選單
+		// 每次一進首頁要拿下拉選單(之後可能會新增，要刷新)
 		ArrayList<ProductType> typeList = typeDao.readAll();
 		HttpSession session = request.getSession();
 		session.setAttribute("typeList", typeList); // 在當前瀏覽器中都拿的到
 
-		// 一進首頁顯示所有商品
+		// 每次一進首頁顯示所有商品
 		ArrayList<Product> products = productDao.readAll();
 		request.setAttribute("products", products);
 

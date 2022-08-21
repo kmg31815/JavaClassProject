@@ -6,11 +6,11 @@ import com.web.dao.ProductDao;
 import com.web.dao.daoImpl.ProductDaoImpl;
 import com.web.model.Product;
 
-public class ProductDaoImplTest {
+public class ProductlTest {
 
 	private ProductDao productDao;
 
-	public ProductDaoImplTest() {
+	public ProductlTest() {
 		productDao = new ProductDaoImpl();
 	}
 
@@ -41,12 +41,12 @@ public class ProductDaoImplTest {
 
 	@Test
 	public void update() {
-		productDao.update(new Product(4, "productName2", "productImage2", "productDesc2", 200, 1));
+		productDao.update(new Product(7, "productName2", "productImage2", "productDesc2", 200, 1));
 	}
 
 	@Test
 	public void delete() {
-		productDao.delete(4);
+		productDao.delete(7);
 	}
 
 }
