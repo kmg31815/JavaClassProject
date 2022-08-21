@@ -17,7 +17,7 @@ import com.web.dao.daoImpl.TypeDaoImpl;
 import com.web.model.Product;
 import com.web.model.ProductType;
 
-@WebServlet(value = "/", loadOnStartup = 0)
+@WebServlet("/")
 public class HomeServlet extends HttpServlet {
 
 	private TypeDao typeDao;
@@ -31,6 +31,7 @@ public class HomeServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("@@@@@@@@@@@"); // 不知為啥啟動專案會跑兩次 (目前不影響，之後再問老師)
 		// 一進首頁要拿下拉選單
 		ArrayList<ProductType> typeList = typeDao.readAll();
 		HttpSession session = request.getSession();
