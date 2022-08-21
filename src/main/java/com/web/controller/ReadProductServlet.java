@@ -24,7 +24,7 @@ public class ReadProductServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println(request.getAttribute("user"));
+		System.out.println("ReadProductServlet\t" + request.getSession().getAttribute("user"));
 
 		/*
 		 * 拿 form 參數 (若為空則顯示所有資料)

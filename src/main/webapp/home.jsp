@@ -161,6 +161,26 @@
 		%>
 	</c:if>
 
+	<!-- sign up success -->
+	<c:if test="${success}">
+		<script>
+			alert('註冊成功，請重新登入');
+		</script>
+		<%
+		session.setAttribute("success", false);
+		%>
+	</c:if>
+
+	<!-- login fail -->
+	<c:if test="${loginfail}">
+		<script>
+			alert('登入失敗\n帳號或密碼錯誤');
+		</script>
+		<%
+		session.setAttribute("loginfail", false);
+		%>
+	</c:if>
+
 	<footer> footer </footer>
 </body>
 

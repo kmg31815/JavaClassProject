@@ -7,31 +7,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.web.dao.UserDao;
 import com.web.dao.daoImpl.UserDaoImpl;
 import com.web.model.User;
+import com.web.utils.LoginUtil;
 
-@WebServlet("/signUpServlet")
-public class SignUpServlet extends HttpServlet {
+@WebServlet("/loginServlet")
+public class LoginServlet extends HttpServlet {
 
 	private UserDao userDao;
+	private LoginUtil loginUtil;
 
-	public SignUpServlet() {
+	public LoginServlet() {
 		userDao = new UserDaoImpl();
+		loginUtil = new LoginUtil();
 	}
 
-	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String userpass = request.getParameter("userpass");
+		User user = new User(username, userpass);
 
-		if (userDao.readByName(username) != null) {
-			request.getSession().setAttribute("fail", true);
+		// 驗證user是否在DB
+		if (userDao.readByUser(user) != null) {
+			// 產token
+			String token = loginUtil.generateJsonWebToken(user);
+			System.out.println(token);
+			// 存token
+			request.getSession().setAttribute("token", token);
 		} else {
-			userDao.create(new User(username, userpass));
-			request.getSession().setAttribute("success", true);
+			request.getSession().setAttribute("loginfail", true);
 		}
 
 		// 導回專案根目錄
