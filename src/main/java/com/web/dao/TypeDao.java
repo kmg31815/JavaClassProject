@@ -1,6 +1,6 @@
 package com.web.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.web.model.ProductType;
 
@@ -8,7 +8,7 @@ public interface TypeDao {
 
 	public void create(ProductType productType);
 
-	public ArrayList<ProductType> readAll();
+	public List<ProductType> readAll();
 
 	public void update(ProductType productType);
 

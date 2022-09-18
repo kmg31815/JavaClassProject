@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.web.dao.ProductDao;
 import com.web.model.Product;
@@ -43,25 +44,58 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public ArrayList<Product> readAll() {
+	public List<Product> readAll() {
 		String sql = "select * from product";
 		return readFunction(sql);
 	}
 
 	@Override
-	public ArrayList<Product> readByType(String typeId) {
+	public Product readById(String id) {
+		Product product = new Product();
+		String sql = "select * from product where id = ?";
+		conn = db.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(id));
+			boolean isFirstResultSet = ps.execute();
+
+			if (isFirstResultSet) {
+				rs = ps.getResultSet();
+				while (rs.next()) {
+					product.setProductId(rs.getInt("id"));
+					product.setProductName(rs.getString("name"));
+					product.setProductImage(rs.getString("image"));
+					product.setProductDesc(rs.getString("description"));
+					product.setProductPrice(rs.getInt("price"));
+					product.setTypeId(rs.getInt("type_id"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(ps);
+			db.close(conn);
+		}
+
+		return product;
+	}
+
+	@Override
+	public List<Product> readByType(String typeId) {
 		String sql = "select * from product where type_id = ?";
 		return readFunction(sql, typeId);
 	}
 
 	@Override
-	public ArrayList<Product> readByKeyword(String keyword) {
+	public List<Product> readByKeyword(String keyword) {
 		String sql = "select * from product where name like ?";
 		return readFunction(sql, ("%" + keyword + "%"));
 	}
 
 	@Override
-	public ArrayList<Product> readByTypeAndKeyword(String typeId, String keyword) {
+	public List<Product> readByTypeAndKeyword(String typeId, String keyword) {
 		String sql = "select * from product where type_id = ? and name like ?";
 		return readFunction(sql, typeId, ("%" + keyword + "%"));
 	}
@@ -105,8 +139,8 @@ public class ProductDaoImpl implements ProductDao {
 		}
 	}
 
-	private ArrayList<Product> readFunction(String sql, String... parameter) {
-		ArrayList<Product> products = new ArrayList();
+	private List<Product> readFunction(String sql, String... parameter) {
+		List<Product> products = new ArrayList<Product>();
 		conn = db.getConnection();
 
 		try {
@@ -126,7 +160,6 @@ public class ProductDaoImpl implements ProductDao {
 					product.setProductDesc(rs.getString("description"));
 					product.setProductPrice(rs.getInt("price"));
 					product.setTypeId(rs.getInt("type_id"));
-					System.out.println(product);
 					products.add(product);
 				}
 			}

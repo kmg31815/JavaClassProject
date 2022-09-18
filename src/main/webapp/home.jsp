@@ -5,7 +5,7 @@
 <title>Home</title>
 </head>
 
-<body>
+<body style="height: 100%;">
 	<header>
 		<div style="height: 100%; display: flex; flex-direction: row;">
 			<div style="flex: 1;">
@@ -16,7 +16,7 @@
 			<div style="flex: 4; display: flex; flex-direction: column;">
 				<div style="flex: 1; display: flex; flex-direction: row;">
 					<a style="flex: 1; border-style: double; border-color: black;"
-						href="shopping_car.jsp">
+						href="<%=request.getContextPath()%>/shoppingCar">
 						<div>購物車</div>
 					</a> <a style="flex: 1; border-style: double; border-color: black;"
 						href="member_center.jsp">
@@ -69,7 +69,7 @@
 						</div>
 
 						<div class="item-img-block">
-							<img src="${products.get(i).productImage}" alt="刀劍神域 1">
+							<img src="${products.get(i).productImage}">
 						</div>
 
 						<div class="item-desc-block">
@@ -78,6 +78,11 @@
 
 						<div class="item-price-block">
 							<span>${products.get(i).productPrice} 元</span>
+						</div>
+						<div class="item-buy-block">
+							<a type="button" class="btn btn-info"
+								style="color: rgb(255, 255, 255);"
+								href="<%=request.getContextPath()%>/buyProduct?buy_product_id=${products.get(i).productId}">加入購物車</a>
 						</div>
 					</li>
 				</c:forEach>
@@ -133,14 +138,14 @@
 				<form action="loginServlet" method="post">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="name">帳號：</label> <input id="name" type="text"
-								placeholder="請輸入帳號" name="username" class="form-control"
-								required>
+							<label for="signup_name">帳號：</label> <input id="signup_name"
+								type="text" placeholder="請輸入帳號" name="username"
+								class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="pass">密碼：</label> <input id="pass" type="password"
-								placeholder="請輸入密碼" name="userpass" class="form-control"
-								required>
+							<label for="signup_pass">密碼：</label> <input id="signup_pass"
+								type="password" placeholder="請輸入密碼" name="userpass"
+								class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -181,7 +186,6 @@
 		%>
 	</c:if>
 
-	<footer> footer </footer>
 </body>
 
 </html>

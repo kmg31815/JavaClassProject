@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/header.jsp"></jsp:include>
 <title>shopping car</title>
 </head>
@@ -34,27 +35,44 @@
 						<div>登入</div>
 					</a>
 				</div>
-				<form action="homeServlet" method="GET"
-					style="flex: 1; display: flex; flex-direction: row;">
-					<div style="flex: 4; padding: 5px 20px 5px 5px;">
-						<select name="type" class="form-control">
-							<option value="" style="display: none">--- 請選擇商品類別 ---</option>
-							<option value="novel">小說</option>
-							<option value="comic">漫畫</option>
-							<option value="ebook">電子書</option>
-						</select>
-					</div>
-					<div style="flex: 4; padding: 5px 20px 5px 5px;">
-						<input type="text" placeholder="請輸入關鍵字" name="keyword"
-							class="form-control">
-					</div>
-					<div style="flex: 1; padding: 5px 20px 5px 5px;">
-						<input type="submit" value="搜尋" class="btn btn-primary">
-					</div>
-				</form>
+
+				<div>
+					<marquee behavior="alternate" bgcolor="#7FFFD4" height="100%">以下為購物車商品列表</marquee>
+				</div>
 			</div>
 		</div>
 	</header>
+
+	<div style="margin-top: 150px;">
+		<c:if test="${buyProducts.size() > 0}">
+			<ul>
+				<c:forEach var="i" begin="0" end="${buyProducts.size() - 1}"
+					step="1">
+					<li>
+						<div class="item-name-block">
+							<span>${buyProducts.get(i).productName}</span>
+						</div>
+
+						<div class="item-img-block">
+							<img src="${buyProducts.get(i).productImage}">
+						</div>
+
+						<div class="item-desc-block">
+							<span>${buyProducts.get(i).productDesc}</span>
+						</div>
+
+						<div class="item-price-block">
+							<span>${buyProducts.get(i).productPrice} 元</span>
+						</div>
+						<div class="item-buy-block">
+							<a type="button" class="btn btn-warning"
+								href="<%=request.getContextPath()%>/shoppingCar?buy_product_id=${buyProducts.get(i).productId}">下次再買</a>
+						</div>
+					</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+	</div>
 
 	<!-- signup Modal -->
 	<div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
@@ -118,6 +136,35 @@
 		</div>
 	</div>
 
+	<!-- sign up fail -->
+	<c:if test="${fail}">
+		<script>
+			alert('使用者名稱已註冊');
+		</script>
+		<%
+		session.setAttribute("fail", false);
+		%>
+	</c:if>
+
+	<!-- sign up success -->
+	<c:if test="${success}">
+		<script>
+			alert('註冊成功，請重新登入');
+		</script>
+		<%
+		session.setAttribute("success", false);
+		%>
+	</c:if>
+
+	<!-- login fail -->
+	<c:if test="${loginfail}">
+		<script>
+			alert('登入失敗\n帳號或密碼錯誤');
+		</script>
+		<%
+		session.setAttribute("loginfail", false);
+		%>
+	</c:if>
 
 </body>
 </html>

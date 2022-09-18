@@ -21,22 +21,27 @@ public class ProductlTest {
 
 	@Test
 	public void testReadAll() {
-		productDao.readAll();
+		System.out.println(productDao.readAll());
+	}
+
+	@Test
+	public void testReadById() {
+		System.out.println(productDao.readById("1"));
 	}
 
 	@Test
 	public void testReadByType() {
-		productDao.readByType("1");
+		System.out.println(productDao.readByType("1"));
 	}
 
 	@Test
 	public void testReadByKeyword() {
-		productDao.readByKeyword("pro");
+		System.out.println(productDao.readByKeyword("pro"));
 	}
 
 	@Test
 	public void testReadByTypeAndKeyword() {
-		productDao.readByTypeAndKeyword("1", "2");
+		System.out.println(productDao.readByTypeAndKeyword("1", "2"));
 	}
 
 	@Test

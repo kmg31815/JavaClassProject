@@ -49,7 +49,7 @@ li {
 }
 
 .item-img-block {
-	flex: 1;
+	flex: 2;
 	padding: 2%;
 	display: flex;
 	justify-content: center;
@@ -73,6 +73,13 @@ li {
 	font-family: serif;
 	font-size: 1.5em;
 	background-color: rgb(255, 230, 200);
+}
+
+.item-buy-block {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 img {

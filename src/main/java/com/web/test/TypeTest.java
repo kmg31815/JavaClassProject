@@ -15,7 +15,7 @@ public class TypeTest {
 
 	@Test
 	public void testReadAll() {
-		typeDao.readAll();
+		System.out.println(typeDao.readAll());
 	}
 
 }

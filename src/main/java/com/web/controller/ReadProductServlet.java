@@ -1,7 +1,7 @@
 package com.web.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +32,7 @@ public class ReadProductServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
 
-		ArrayList<Product> products = null;
+		List<Product> products = null;
 		if (type.equals("") && keyword.equals("")) {
 			products = productDao.readAll();
 		} else if (!type.equals("") && keyword.equals("")) {

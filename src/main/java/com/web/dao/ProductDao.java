@@ -1,6 +1,6 @@
 package com.web.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.web.model.Product;
 
@@ -8,13 +8,15 @@ public interface ProductDao {
 
 	public void create(Product product);
 
-	public ArrayList<Product> readAll();
+	public List<Product> readAll();
 
-	public ArrayList<Product> readByType(String typeId);
+	public Product readById(String id);
 
-	public ArrayList<Product> readByKeyword(String keyword);
+	public List<Product> readByType(String typeId);
 
-	public ArrayList<Product> readByTypeAndKeyword(String typeId, String keyword);
+	public List<Product> readByKeyword(String keyword);
+
+	public List<Product> readByTypeAndKeyword(String typeId, String keyword);
 
 	public void update(Product product);
 

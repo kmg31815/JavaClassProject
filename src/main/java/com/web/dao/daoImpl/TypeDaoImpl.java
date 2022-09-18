@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.web.dao.TypeDao;
 import com.web.model.ProductType;
@@ -27,8 +28,8 @@ public class TypeDaoImpl implements TypeDao {
 	}
 
 	@Override
-	public ArrayList<ProductType> readAll() {
-		ArrayList<ProductType> productTypes = new ArrayList();
+	public List<ProductType> readAll() {
+		List<ProductType> productTypes = new ArrayList<ProductType>();
 		String sql = "select * from type";
 		conn = db.getConnection();
 
@@ -42,7 +43,6 @@ public class TypeDaoImpl implements TypeDao {
 					ProductType productType = new ProductType();
 					productType.setTypeId(rs.getInt("id"));
 					productType.setTypeName(rs.getString("name"));
-					System.out.println(productType);
 					productTypes.add(productType);
 				}
 			}
